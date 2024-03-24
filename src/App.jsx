@@ -1,5 +1,3 @@
-import Button from '@mui/material/Button'
-import AcUnitIcon from '@mui/icons-material/AcUnit'
 import { useColorScheme } from '@mui/material/styles/'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -9,12 +7,10 @@ import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness6Icon from '@mui/icons-material/Brightness6'
 import Box from '@mui/material/Box'
+import { Container } from '@mui/material'
 
 function ModeDarkLightToggle() {
   const { mode, setMode } = useColorScheme()
-
-  console.log(mode)
-
   const handleModeChange = (e) => {
     setMode(e.target.value)
   }
@@ -49,31 +45,37 @@ function ModeDarkLightToggle() {
   )
 }
 
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme()
-  return (
-    <Button
-      onClick={() => {
-        setMode(mode === 'light' ? 'dark' : 'light')
-      }}
-    >
-      {mode === 'light' ? 'Turn dark' : 'Turn light'}
-    </Button>
-  )
-}
-
 function App() {
   return (
-    <>
-      <ModeDarkLightToggle />
-      <ModeToggle />
-      <div>Trung Ung Dung</div>
-      <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-      <br />
-      <AcUnitIcon />
-    </>
+    <Container disableGutters maxWidth={false} sx={{ height: '100vh', backgroundColor: 'primary.main' }}>
+      <Box sx={{
+        backgroundColor: 'primary.light',
+        width: '100%',
+        height: (theme) => theme.trello.appBarHeight,
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        <ModeDarkLightToggle />
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.dark',
+        width: '100%',
+        height: (theme) => theme.trello.boardBarHeight,
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        Board Bar
+      </Box>
+      <Box sx={{
+        backgroundColor: 'primary.main',
+        width: '100%',
+        height: (theme) => `calc(100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight})`,
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        Board Content
+      </Box>
+    </Container>
   )
 }
 
