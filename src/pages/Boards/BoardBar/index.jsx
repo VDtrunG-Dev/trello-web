@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 
-const BoardBar = () => {
+function BoardBar() {
   return (
     <Box sx={{
       backgroundColor: 'primary.dark',
