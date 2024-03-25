@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 
-const BoardContent = () => {
+function BoardContent() {
   return (
     <Box sx={{
       backgroundColor: 'primary.main',
