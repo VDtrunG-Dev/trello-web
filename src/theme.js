@@ -1,5 +1,5 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles'
-import { cyan, deepPurple, orange, teal } from '@mui/material/colors'
+import { lightBlue, blue, deepPurple, orange, teal } from '@mui/material/colors'
 
 // Create a theme instance.
 const theme = extendTheme({
@@ -10,14 +10,53 @@ const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
-        primary: teal,
-        secondary: deepPurple
+        primary: lightBlue,
+        secondary: blue
       }
     },
     dark: {
       palette: {
-        primary: cyan,
-        secondary: orange
+        primary: deepPurple,
+        secondary: teal
+      }
+    }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none'
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.primary.main,
+          fontSize: '0,875 rem'
+        })
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          return {
+            color: theme.palette.primary.main,
+            fontSize: '0.875rem',
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.primary.main
+            },
+            '&: hover': {
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: theme.palette.primary.light
+              }
+
+            },
+            '& fieldset': {
+              borderWidth: '1px !important'
+            }
+          }
+        }
       }
     }
   }
