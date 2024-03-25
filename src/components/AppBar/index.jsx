@@ -19,7 +19,6 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 function AppBar() {
   return (
     <Box px={2} sx={{
-      backgroundColor: 'primary.light',
       width: '100%',
       height: (theme) => theme.trello.appBarHeight,
       display: 'flex',
@@ -42,14 +41,14 @@ function AppBar() {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <TextField id="outlined-search" label="Search..." type='search' size='small' />
         <ModeDarkLightToggle />
-        <Tooltip title="Notification">
+        <Tooltip title="Notifications">
           <Badge color="secondary" variant="dot" sx={{ cursor: 'pointer' }}>
-            <NotificationsNoneIcon />
+            <NotificationsNoneIcon sx={{ color: 'primary.main' }} />
           </Badge>
         </Tooltip>
         <Tooltip title="Help">
           <Badge color="secondary" sx={{ cursor: 'pointer' }}>
-            <HelpOutlineIcon />
+            <HelpOutlineIcon sx={{ color: 'primary.main' }} />
           </Badge>
         </Tooltip>
         <Profiles />
