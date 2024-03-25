@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import ModeDarkLightToggle from '../ModeDarkLightToggle'
+import ModeDarkLightToggle from '~/components/ModeDarkLightToggle'
 
 const AppBar = () => {
   return (
