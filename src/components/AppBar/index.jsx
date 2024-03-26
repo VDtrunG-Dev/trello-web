@@ -18,13 +18,14 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
 import NavBar from './NavBar'
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 
 function AppBar() {
   return (
     <AppBarReponsitive position="static">
       <Box
-        px={2} sx={{
-          // backgroundColor: 'secondary.main',
+        sx={{
+          px: 2,
           width: '100%',
           height: (theme) => theme.trello.appBarHeight,
           display: 'flex',
@@ -48,7 +49,7 @@ function AppBar() {
               <Starred />
               <Templates />
             </Box>
-            <Button variant="outlined" >Create</Button>
+            <Button variant="outlined" startIcon={<LibraryAddIcon />}>Create</Button>
           </Box>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
