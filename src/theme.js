@@ -10,18 +10,45 @@ const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
-        primary: lightBlue,
+        primary: {
+          light: '#',
+          main: '#',
+          dark: '#',
+          contrastText: '#'
+        },
         secondary: blue
       }
     },
     dark: {
       palette: {
-        primary: deepPurple,
+        primary: {
+          light: '#',
+          main: '#',
+          dark: '#',
+          contrastText: '#'
+        },
         secondary: teal
       }
     }
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          '*::-webkit-scrollbar': {
+            width: '8px',
+            height: '8px'
+          },
+          '*::-webkit-scrollbar-thumb': {
+            borderRadius: '8px',
+            backgroundColor: '#bdc3c7'
+          },
+          '*::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#95a5a6'
+          }
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: {
