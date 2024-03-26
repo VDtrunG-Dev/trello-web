@@ -7,15 +7,16 @@ import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness5Icon from '@mui/icons-material/Brightness5'
 import Brightness6Icon from '@mui/icons-material/Brightness6'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+function ModeDarkLight() {
 
-function ModeDarkLightToggle() {
   const { mode, setMode } = useColorScheme()
   const handleModeChange = (e) => {
     setMode(e.target.value)
   }
 
   return (
-    <FormControl size="small">
+    <FormControl size="small" sx={{ minWidth: 60 }}>
       <InputLabel id="label-select-dark-light-mode">Mode</InputLabel>
       <Select
         labelId="demo-select-small-label"
@@ -26,17 +27,20 @@ function ModeDarkLightToggle() {
       >
         <MenuItem value="light">
           <Box style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            Light <Brightness5Icon fontSize='small' />
+            <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>Light</Typography>
+            <Brightness5Icon fontSize='small' />
           </Box>
         </MenuItem>
         <MenuItem value="dark">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            Dark <Brightness4Icon fontSize='small' />
+            <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>Dark</Typography>
+            <Brightness4Icon fontSize='small' />
           </Box>
         </MenuItem>
         <MenuItem value="system">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            System <Brightness6Icon fontSize='small' />
+            <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'flex' } }}>System</Typography>
+            <Brightness6Icon fontSize='small' />
           </Box>
         </MenuItem>
       </Select>
@@ -44,4 +48,4 @@ function ModeDarkLightToggle() {
   )
 }
 
-export default ModeDarkLightToggle
+export default ModeDarkLight
