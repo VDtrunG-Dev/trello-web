@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Box from '@mui/material/Box'
@@ -33,7 +32,7 @@ function Profiles() {
           aria-expanded={open ? 'true' : undefined}
         >
           <Avatar
-            sx={{ width: 30, height: 30 }}
+            sx={{ width: 34, height: 34 }}
             alt='Avatar'
             src='https://scontent.fhan5-7.fna.fbcdn.net/v/t1.6435-1/175839168_2553408714962754_3956644001235066942_n.jpg?stp=dst-jpg_p320x320&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFgmL741YcBg87f_mmPR_mIbABxq20c36dsAHGrbRzfp4h5bGAu63KLSyWV_6SAmeX8wLi9PtCtj7BXKGlYVdJG&_nc_ohc=FAHz-gg7YBwAX-iWh92&_nc_ht=scontent.fhan5-7.fna&oh=00_AfDDtcbG1gtt7OA9rGzdWM8QSeMNzse72_5Sb2AbOVtTYA&oe=6628B011'
           />
