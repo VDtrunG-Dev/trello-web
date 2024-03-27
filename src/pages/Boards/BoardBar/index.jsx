@@ -36,7 +36,8 @@ function BoardBar() {
       gap: 2,
       overflowX: 'auto',
       borderBottom: '1px solid #00bfa5',
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#0097e6')
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#0097e6'),
+      '&::-webkit-scrollbar-track': { m: 2 }
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Chip
@@ -93,7 +94,10 @@ function BoardBar() {
               width: 34,
               height: 34,
               fontSize: 16,
-              border: 'none'
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              '&:first-of-type': { bgcolor: '#5f27cd' }
             }
           }}>
           <Tooltip title="DucTrungDev">
