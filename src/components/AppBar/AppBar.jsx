@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Box from '@mui/material/Box'
-import ModeDarkLight from '~/components/ModeDarkLightToggle'
+import ModeDarkLight from '~/components/ModeDarkLight/ModeDarkLight'
 import SvgIcon from '@mui/material/SvgIcon'
 import { ReactComponent as TrelloIcon } from '~/assets/trello.svg'
 import { AppBar as AppBarReponsitive } from '@mui/material'

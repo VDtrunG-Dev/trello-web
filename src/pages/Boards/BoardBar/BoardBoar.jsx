@@ -35,7 +35,6 @@ function BoardBar() {
       justifyContent: 'space-between',
       gap: 2,
       overflowX: 'auto',
-      borderBottom: '1px solid #00bfa5',
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#0097e6'),
       '&::-webkit-scrollbar-track': { m: 2 }
     }}>
