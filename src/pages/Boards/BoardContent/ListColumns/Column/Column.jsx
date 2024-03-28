@@ -17,8 +17,11 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ListCards from './ListCards/ListCards'
+import { mapOrder } from '~/utilities/sorts'
 
-function Column() {
+function Column({ column }) {
+
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
@@ -53,7 +56,7 @@ function Column() {
           cursor: 'pointer'
         }}
         >
-          Column Title
+          {column.title}
         </Typography>
         <Box>
           <Box>
@@ -110,7 +113,7 @@ function Column() {
       </Box >
 
       {/*List Cart */}
-      <ListCards />
+      <ListCards cards={orderedCards} />
       {/* Box Colume Footer */}
       < Box sx={{
         height: (theme) => theme.trello.columnFooterHeight,
