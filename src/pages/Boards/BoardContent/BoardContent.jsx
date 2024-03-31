@@ -56,6 +56,63 @@ function BoardContent({ board }) {
     return orderedColumns.find(column => column?.cards?.map(card => card._id)?.includes(cardId))
   }
 
+  // Function chung cập nhật lại state trong trường hợp di chuyển cart giữa 2 column khác nhau
+  const moveCardBetweenDifferentColumns = (
+    overColumn,
+    overCardId,
+    active,
+    over,
+    activeColumn,
+    activeDraggingCarId,
+    activeDraggingCardData
+  ) => {
+    setOrderedColumn(prevColumns => {
+      // Tìm vị trí của overCard trong column đích
+      const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
+
+      let newCardIndex
+
+      // Logic tính toán cho "Card Index mới"
+      const isBelowOverItem = active.rect.current.translated &&
+        active.rect.current.translated.top > over.rect.top + over.rect.height
+      const modifier = isBelowOverItem ? 1 : 0
+      newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1
+
+      const nextColumns = cloneDeep(prevColumns)
+      const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id)
+      const nextOverColumn = nextColumns.find(column => column._id === overColumn._id)
+
+      // Old Column
+      if (nextActiveColumn) {
+        // Xóa card ở column active (cũng có thể hiểu là column cũ, cái lúc mà kéo card ra khỏi nó để
+        // để sang column khác)
+        nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCarId)
+        // Cập nhật lại mảng cardOrderIds cho chuẩn dữ liệu với
+        nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
+      }
+      // New Column
+      if (nextOverColumn) {
+        // Kiểm tra xem card đang kéo có tồn tại ở overColumn chưa, nếu có thì cần xóa nó trước
+        nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCarId)
+
+        // Đối với trường hợp dragEnd thì phải cập nhật lại giá trị columnId trong card
+        // sau khi kéo giữa 2 column khác nhau
+        const rebuild_activeDraggingCardData = {
+          ...activeDraggingCardData,
+          columnId: nextOverColumn._id
+        }
+
+        // Tiếp theo thêm card đang kéo vào vị trí mới ở overColumn
+        nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData)
+
+        nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
+
+      }
+
+      return nextColumns
+    })
+  }
+
   // Trigger khi bắt đầu kéo(drag) 1 phần tử
   const handleDragStart = (event) => {
     // console.log(event);
@@ -95,44 +152,15 @@ function BoardContent({ board }) {
 
     // Xử lý logic ở đây chỉ khi kéo card qua 2 column khác nhau
     if (activeColumn._id !== overColumn._id) {
-      setOrderedColumn(prevColumns => {
-        // Tìm vị trí của overCard trong column đích
-        const overCardIndex = overColumn?.cards?.findIndex(card => card._id === overCardId)
-
-        let newCardIndex
-
-        // Logic tính toán cho "Card Index mới"
-        const isBelowOverItem = active.rect.current.translated &&
-          active.rect.current.translated.top > over.rect.top + over.rect.height
-        const modifier = isBelowOverItem ? 1 : 0
-        newCardIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1
-
-        const nextColumns = cloneDeep(prevColumns)
-        const nextActiveColumn = nextColumns.find(column => column._id === activeColumn._id)
-        const nextOverColumn = nextColumns.find(column => column._id === overColumn._id)
-
-        // Old Column
-        if (nextActiveColumn) {
-          // Xóa card ở column active (cũng có thể hiểu là column cũ, cái lúc mà kéo card ra khỏi nó để
-          // để sang column khác)
-          nextActiveColumn.cards = nextActiveColumn.cards.filter(card => card._id !== activeDraggingCarId)
-          // Cập nhật lại mảng cardOrderIds cho chuẩn dữ liệu với
-          nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map(card => card._id)
-        }
-        // New Column
-        if (nextOverColumn) {
-          // Kiểm tra xem card đang kéo có tồn tại ở overColumn chưa, nếu có thì cần xóa nó trước
-          nextOverColumn.cards = nextOverColumn.cards.filter(card => card._id !== activeDraggingCarId)
-
-          // Tiếp theo thêm card đang kéo vào vị trí mới ở overColumn
-          nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, activeDraggingCardData)
-
-          nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
-
-        }
-
-        return nextColumns
-      })
+      moveCardBetweenDifferentColumns(
+        overColumn,
+        overCardId,
+        active,
+        over,
+        activeColumn,
+        activeDraggingCarId,
+        activeDraggingCardData
+      )
     }
   }
 
@@ -160,7 +188,16 @@ function BoardContent({ board }) {
 
 
       if (oldColumnWhenDraggingCart._id !== overColumn._id) {
-        // console.log('Hành động kéo thả card giữa 2 column khác nhau');
+        // console.log('Hành động kéo thả card giữa 2 column khác nhau')
+        moveCardBetweenDifferentColumns(
+          overColumn,
+          overCardId,
+          active,
+          over,
+          activeColumn,
+          activeDraggingCarId,
+          activeDraggingCardData
+        )
       } else {
         // Hành động kéo thả card trong cùng 1 column
         // Lấy vị trí cũ từ oldColumnWhenDraggingCart
